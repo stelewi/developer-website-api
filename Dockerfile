@@ -48,8 +48,10 @@ RUN set -eux; \
 		zip \
     ;
 
-###> recipes ###
-###< recipes ###
+
+# PHP PDO/MySQL and MySQLite Driver
+RUN docker-php-ext-install mysqli pdo pdo_mysql \
+     && docker-php-ext-enable pdo_mysql
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --link docker/php/conf.d/app.ini $PHP_INI_DIR/conf.d/
