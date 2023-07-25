@@ -14,3 +14,7 @@
 
 # local mysql data
 /mysql
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
