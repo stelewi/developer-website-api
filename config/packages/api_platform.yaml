@@ -5,3 +5,8 @@ api_platform:
             JWT:
                 name: Authorization
                 type: header
+                
+    # The list of your resources class directories. Defaults to the directories of the mapping paths but might differ.
+    resource_class_directories:
+        - '%kernel.project_dir%/src/Entity'
+        - '%kernel.project_dir%/src/Dto'
