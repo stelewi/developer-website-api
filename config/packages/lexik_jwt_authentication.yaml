@@ -7,3 +7,5 @@ lexik_jwt_authentication:
         check_path: /auth
         username_path: username
         password_path: password
+        
+    token_ttl: 86400 # 1 day (in seconds)
