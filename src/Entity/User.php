@@ -4,9 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\Post;
 use App\Repository\UserRepository;
-use App\State\User\AnonymousUserRequestStateProcessor;
+use App\State\User\MeStateProvider;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,6 +16,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(
             security: "is_granted('ROLE_ADMIN') or object == user"
+        ),
+        new Get(
+            uriTemplate: '/me',
+            provider: MeStateProvider::class
         )
     ],
     normalizationContext: ['groups' => ['User:read']]
