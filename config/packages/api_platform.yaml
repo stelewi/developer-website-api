@@ -1,5 +1,6 @@
 # api/config/packages/api_platform.yaml
 api_platform:
+    path_segment_name_generator: api_platform.path_segment_name_generator.dash
     swagger:
         api_keys:
             JWT:

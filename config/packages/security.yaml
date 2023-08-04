@@ -23,6 +23,7 @@ security:
             security: false
         main:
             stateless: true
+            entry_point: jwt
             provider: users
             json_login:
                 check_path: auth # The name in routes.yaml is enough for mapping
@@ -31,7 +32,10 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
             jwt: ~
-
+            refresh_jwt:
+                check_path: /token/refresh
+            logout:
+                path: api_token_invalidate
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -44,7 +48,8 @@ security:
         - { path: ^/$, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
         - { path: ^/docs, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI docs
         - { path: ^/auth, roles: PUBLIC_ACCESS }
-        - { path: ^/anonymous_user_requests$, roles: PUBLIC_ACCESS, methods: [POST] } # Allow client creation of anon users
+        - { path: ^/token/refresh$, roles: PUBLIC_ACCESS }
+        - { path: ^/anonymous-user-requests$, roles: PUBLIC_ACCESS, methods: [POST] } # Allow client creation of anon users
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:

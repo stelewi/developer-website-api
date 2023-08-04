@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             processor: AnonymousUserRequestStateProcessor::class
         )
     ],
-    normalizationContext: ['groups' => ['AnonymousUserRequest:read']],
+    normalizationContext: ['groups' => ['AnonymousUserRequest:read', 'User:read']],
     denormalizationContext: ['groups' => ['AnonymousUserRequest:write']],
 )]
 class AnonymousUserRequest
@@ -26,12 +26,13 @@ class AnonymousUserRequest
     #[Groups(['AnonymousUserRequest:read'])]
     protected ?string $id = null;
 
-    #[Groups(['AnonymousUserRequest:read', 'AnonymousUserRequest:write'])]
-    protected string $username;
     #[Groups(['AnonymousUserRequest:read'])]
     protected ?User $newAnonymousUser = null;
     #[Groups(['AnonymousUserRequest:read'])]
     protected ?string $jwtToken = null;
+
+    #[Groups(['AnonymousUserRequest:read'])]
+    protected ?string $refreshToken = null;
 
     /**
      * @param string|null $id
@@ -47,22 +48,6 @@ class AnonymousUserRequest
     public function getId(): ?string
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    /**
-     * @param string $username
-     */
-    public function setUsername(string $username): void
-    {
-        $this->username = $username;
     }
 
     /**
@@ -96,4 +81,21 @@ class AnonymousUserRequest
     {
         $this->jwtToken = $jwtToken;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getRefreshToken(): ?string
+    {
+        return $this->refreshToken;
+    }
+
+    /**
+     * @param string|null $refreshToken
+     */
+    public function setRefreshToken(?string $refreshToken): void
+    {
+        $this->refreshToken = $refreshToken;
+    }
+
 }

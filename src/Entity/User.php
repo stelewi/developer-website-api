@@ -125,7 +125,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ];
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // password already hashed!
         // nothing to do here

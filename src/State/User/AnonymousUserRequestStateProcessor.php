@@ -8,45 +8,47 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Dto\AnonymousUserRequest;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Gesdinet\JWTRefreshTokenBundle\Generator\RefreshTokenGeneratorInterface;
+use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AnonymousUserRequestStateProcessor implements ProcessorInterface
 {
+    const ANON_USER_REFRESH_TOKEN_TTL = 2592000;
+
     protected EntityManagerInterface $entityManager;
-
     protected UserPasswordHasherInterface $passwordHasher;
-
     protected JWTTokenManagerInterface $JWTTokenManager;
+    private RefreshTokenGeneratorInterface $refreshTokenGenerator;
+    private RefreshTokenManagerInterface $refreshTokenManager;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher,
-        JWTTokenManagerInterface $JWTTokenManager
+        JWTTokenManagerInterface $JWTTokenManager,
+        RefreshTokenGeneratorInterface $refreshTokenGenerator,
+        RefreshTokenManagerInterface $refreshTokenManager
     ) {
         $this->entityManager = $entityManager;
         $this->passwordHasher = $passwordHasher;
         $this->JWTTokenManager = $JWTTokenManager;
+        $this->refreshTokenGenerator = $refreshTokenGenerator;
+        $this->refreshTokenManager = $refreshTokenManager;
     }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {
         $anonymousUserRequest = $data;
 
-        if(!$anonymousUserRequest instanceof AnonymousUserRequest)
-        {
-            throw new \Exception('not supported');
-        }
-
-        // Only supports post operations
-        if(!$operation instanceof Post)
+        if(!$anonymousUserRequest instanceof AnonymousUserRequest || !$operation instanceof Post)
         {
             throw new \Exception('not supported');
         }
 
         $user = new User();
         $user->setIsAnonymous(true);
-        $user->setUsername($anonymousUserRequest->getUsername());
+        $user->setUsername($anonymousUserRequest->getId());
 
         $randomPassword = random_bytes(10);
         $user->setPassword($this->passwordHasher->hashPassword(
@@ -59,6 +61,11 @@ class AnonymousUserRequestStateProcessor implements ProcessorInterface
 
         $anonymousUserRequest->setNewAnonymousUser($user);
         $anonymousUserRequest->setJwtToken($this->JWTTokenManager->create($user));
+
+        $refreshToken = $this->refreshTokenGenerator->createForUserWithTtl($user, self::ANON_USER_REFRESH_TOKEN_TTL);
+        $this->refreshTokenManager->save($refreshToken);
+
+        $anonymousUserRequest->setRefreshToken($refreshToken->getRefreshToken());
 
         return $anonymousUserRequest;
     }
