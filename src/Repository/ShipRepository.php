@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\SwapfestPlayer;
+use App\Entity\Ship;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<SwapfestPlayer>
+ * @extends ServiceEntityRepository<Ship>
  *
- * @method SwapfestPlayer|null find($id, $lockMode = null, $lockVersion = null)
- * @method SwapfestPlayer|null findOneBy(array $criteria, array $orderBy = null)
- * @method SwapfestPlayer[]    findAll()
- * @method SwapfestPlayer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Ship|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Ship|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Ship[]    findAll()
+ * @method Ship[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SwapfestPlayerRepository extends ServiceEntityRepository
+class ShipRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SwapfestPlayer::class);
+        parent::__construct($registry, Ship::class);
     }
 
 //    /**
-//     * @return SwapfestPlayer[] Returns an array of SwapfestPlayer objects
+//     * @return Ship[] Returns an array of Ship objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class SwapfestPlayerRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?SwapfestPlayer
+//    public function findOneBySomeField($value): ?Ship
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')

@@ -26,8 +26,12 @@ class AnonymousUserRequest
     #[Groups(['AnonymousUserRequest:read'])]
     protected ?string $id = null;
 
+    #[Groups(['AnonymousUserRequest:write'])]
+    protected string $username;
+
     #[Groups(['AnonymousUserRequest:read'])]
     protected ?User $newAnonymousUser = null;
+
     #[Groups(['AnonymousUserRequest:read'])]
     protected ?string $jwtToken = null;
 
@@ -48,6 +52,22 @@ class AnonymousUserRequest
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
     }
 
     /**

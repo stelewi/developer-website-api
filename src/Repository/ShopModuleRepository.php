@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\SwapfestPlayerScore;
+use App\Entity\ShopModule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<SwapfestPlayerScore>
+ * @extends ServiceEntityRepository<ShopModule>
  *
- * @method SwapfestPlayerScore|null find($id, $lockMode = null, $lockVersion = null)
- * @method SwapfestPlayerScore|null findOneBy(array $criteria, array $orderBy = null)
- * @method SwapfestPlayerScore[]    findAll()
- * @method SwapfestPlayerScore[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ShopModule|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ShopModule|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ShopModule[]    findAll()
+ * @method ShopModule[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SwapfestPlayerScoreRepository extends ServiceEntityRepository
+class ShopModuleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SwapfestPlayerScore::class);
+        parent::__construct($registry, ShopModule::class);
     }
 
 //    /**
-//     * @return SwapfestPlayerScore[] Returns an array of SwapfestPlayerScore objects
+//     * @return ShopModule[] Returns an array of ShopModule objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class SwapfestPlayerScoreRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?SwapfestPlayerScore
+//    public function findOneBySomeField($value): ?ShopModule
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')

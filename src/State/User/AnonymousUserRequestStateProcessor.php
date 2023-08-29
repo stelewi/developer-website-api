@@ -48,7 +48,7 @@ class AnonymousUserRequestStateProcessor implements ProcessorInterface
 
         $user = new User();
         $user->setIsAnonymous(true);
-        $user->setUsername($anonymousUserRequest->getId());
+        $user->setUsername($anonymousUserRequest->getUsername());
 
         $randomPassword = random_bytes(10);
         $user->setPassword($this->passwordHasher->hashPassword(

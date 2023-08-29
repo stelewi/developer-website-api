@@ -8,4 +8,4 @@ lexik_jwt_authentication:
         username_path: username
         password_path: password
         
-    token_ttl: 10 # 20 seconds (during development, change later)
+    token_ttl: 300

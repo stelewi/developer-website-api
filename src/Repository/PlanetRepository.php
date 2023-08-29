@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Player;
+use App\Entity\Planet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Player>
+ * @extends ServiceEntityRepository<Planet>
  *
- * @method Player|null find($id, $lockMode = null, $lockVersion = null)
- * @method Player|null findOneBy(array $criteria, array $orderBy = null)
- * @method Player[]    findAll()
- * @method Player[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Planet|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Planet|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Planet[]    findAll()
+ * @method Planet[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PlayerRepository extends ServiceEntityRepository
+class PlanetRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Player::class);
+        parent::__construct($registry, Planet::class);
     }
 
 //    /**
-//     * @return Player[] Returns an array of Player objects
+//     * @return Planet[] Returns an array of Planet objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class PlayerRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Player
+//    public function findOneBySomeField($value): ?Planet
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

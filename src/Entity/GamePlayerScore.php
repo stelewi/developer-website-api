@@ -3,13 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\SwapfestPlayerScoreRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: SwapfestPlayerScoreRepository::class)]
 #[ApiResource]
-class SwapfestPlayerScore
+#[ORM\Entity()]
+class GamePlayerScore
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,7 +23,7 @@ class SwapfestPlayerScore
 
     #[ORM\OneToOne(inversedBy: 'score', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?SwapfestPlayer $player = null;
+    private ?GamePlayer $player = null;
 
     public function getId(): ?int
     {
@@ -55,12 +54,12 @@ class SwapfestPlayerScore
         return $this;
     }
 
-    public function getPlayer(): ?SwapfestPlayer
+    public function getPlayer(): ?GamePlayer
     {
         return $this->player;
     }
 
-    public function setPlayer(SwapfestPlayer $player): static
+    public function setPlayer(GamePlayer $player): static
     {
         $this->player = $player;
 
